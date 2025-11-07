@@ -5,14 +5,22 @@ import { appRouter } from "@notes/api/routers/index";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { Bot } from "gramio";
+import { env } from "./env";
 
 const app = new Hono();
+
+const bot = new Bot(env.BOT_TOKEN)
+	.command("start", (context) => context.send("Hi!"))
+	.onStart(console.log);
+
+bot.start();
 
 app.use(logger());
 app.use(
 	"/*",
 	cors({
-		origin: process.env.CORS_ORIGIN || "",
+		origin: env.CORS_ORIGIN || "",
 		allowMethods: ["GET", "POST", "OPTIONS"],
 	}),
 );

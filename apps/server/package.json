@@ -10,13 +10,15 @@
     "start": "bun run dist/index.js"
   },
   "dependencies": {
-    "hono": "catalog:",
-    "@trpc/server": "catalog:",
     "@hono/trpc-server": "^0.4.0",
-    "dotenv": "catalog:",
-    "zod": "catalog:",
     "@notes/api": "workspace:*",
-    "@notes/db": "workspace:*"
+    "@notes/db": "workspace:*",
+    "@t3-oss/env-core": "^0.13.8",
+    "@trpc/server": "catalog:",
+    "dotenv": "catalog:",
+    "gramio": "^0.4.11",
+    "hono": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "typescript": "catalog:",
