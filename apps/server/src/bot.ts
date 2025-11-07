@@ -1,8 +1,28 @@
 import { Bot } from "gramio";
 import { env } from "./env";
+import { messageRepository } from "./message/message-repository";
+import { userRepository } from "./user/user-repository";
 
 const bot = new Bot(env.BOT_TOKEN)
 	.command("start", (context) => context.send("Hi!"))
 	.onStart(console.log);
 
+bot.on("message", async (ctx) => {
+	const userTgId = ctx.senderId;
+	if (!userTgId) throw new Error(`Sender id expected, but got ${userTgId}`);
+	let user = await userRepository.findByTgId(userTgId);
+	if (!user) {
+		user = await userRepository.create({
+			tgId: userTgId,
+		});
+	}
+	if (!user)
+		throw new Error(`Unable to find or create user with tg id: ${userTgId}`);
+
+	await messageRepository.create({
+		text: ctx.text,
+		tgId: ctx.id,
+		userId: user?.id,
+	});
+});
 bot.start();
