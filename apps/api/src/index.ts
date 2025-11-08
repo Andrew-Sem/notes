@@ -6,7 +6,6 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { env } from "./env";
-import "./bot";
 
 const app = new Hono();
 

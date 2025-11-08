@@ -3,9 +3,8 @@ import { z } from "zod";
 
 export const env = createEnv({
 	server: {
-		DATABASE_URL: z.url(),
 		BOT_TOKEN: z.string(),
-		CORS_ORIGIN: z.url(),
+		DATABASE_URL: z.url(),
 	},
 
 	runtimeEnv: process.env,

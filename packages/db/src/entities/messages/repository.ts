@@ -1,8 +1,6 @@
-import { db } from "@notes/db";
-import {
-	type MessageInsert,
-	messages,
-} from "@notes/db/entities/messages/index";
+import { db } from "../../index";
+import { messages } from "./table";
+import type { MessageInsert } from "./types";
 
 export const messageRepository = {
 	async create(saveMessageDto: MessageInsert) {

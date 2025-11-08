@@ -1,7 +1,7 @@
+import "dotenv/config";
+import { messageRepository, userRepository } from "@notes/db";
 import { Bot } from "gramio";
 import { env } from "./env";
-import { messageRepository } from "./message/message-repository";
-import { userRepository } from "./user/user-repository";
 
 const bot = new Bot(env.BOT_TOKEN)
 	.command("start", (context) => context.send("Hi!"))
@@ -25,4 +25,5 @@ bot.on("message", async (ctx) => {
 		userId: user?.id,
 	});
 });
+
 bot.start();
