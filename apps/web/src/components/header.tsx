@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ModeToggle } from "./mode-toggle";
 import { BackButton } from "./back-button";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Header() {
 	const links = [{ to: "/", label: "Home" }] as const;

@@ -1,5 +1,5 @@
+import { type UserInsert, users } from "@notes/db/entities/users/index";
 import { db } from "@notes/db/index";
-import { users, type UserInsert } from "@notes/db/entities/users/index";
 
 export const userRepository = {
 	async findByTgId(tgId: number) {

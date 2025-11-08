@@ -1,2 +1,2 @@
-export type { MessageInsert } from "./types";
 export { messages } from "./table";
+export type { MessageInsert } from "./types";

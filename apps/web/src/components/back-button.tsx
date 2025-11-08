@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { backButton, useSignal } from "@tma.js/sdk-react";
+import { useEffect } from "react";
 
 export function BackButton() {
 	const isVisible = useSignal(backButton.isVisible);

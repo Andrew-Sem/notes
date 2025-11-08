@@ -1,8 +1,8 @@
 import {
 	backButton,
+	emitEvent,
 	init,
 	mockTelegramEnv,
-	emitEvent,
 } from "@tma.js/sdk-react";
 
 const initDataRaw = new URLSearchParams(window.location.hash.slice(1)).get(
