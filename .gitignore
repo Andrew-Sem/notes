@@ -12,6 +12,12 @@ build
 .env
 .env*.local
 
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+
 # IDEs and editors
 .vscode/*
 !.vscode/settings.json

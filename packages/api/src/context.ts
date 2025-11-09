@@ -1,5 +1,5 @@
 import type { User } from "@notes/db";
-import { userRepository } from "@notes/db";
+import { noteRepository, userRepository } from "@notes/db";
 import { validateInitData } from "@notes/telegram";
 import type { Context as HonoContext } from "hono";
 import { verifyAccessToken } from "./lib/jwt";
@@ -31,8 +31,9 @@ export async function createContext(opts: CreateContextOptions) {
 				}
 			}
 		}
-	} catch {
+	} catch (error) {
 		// Invalid token or user not found - session remains null
+		console.error("Auth error:", error);
 	}
 
 	return {
@@ -43,6 +44,7 @@ export async function createContext(opts: CreateContextOptions) {
 				validateInitData(initData, process.env.BOT_TOKEN || ""),
 		},
 		userRepository,
+		noteRepository,
 	};
 }
 

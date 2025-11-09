@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { NotesList } from "@/features/notes-list";
 import { trpc } from "@/shared/api/trpc";
 
 export const Route = createFileRoute("/")({
@@ -26,6 +27,9 @@ function HomeComponent() {
 									: "Disconnected"}
 						</span>
 					</div>
+				</section>
+				<section>
+					<NotesList />
 				</section>
 			</div>
 		</div>

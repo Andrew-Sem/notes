@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { messageRepository, userRepository } from "@notes/db";
+import { noteRepository, userRepository } from "@notes/db";
 import { Bot } from "gramio";
 import { env } from "./env";
 
@@ -14,12 +14,13 @@ bot.on("message", async (ctx) => {
 	if (!user) {
 		user = await userRepository.create({
 			tgId: userTgId,
+			firstName: "",
 		});
 	}
 	if (!user)
 		throw new Error(`Unable to find or create user with tg id: ${userTgId}`);
 
-	await messageRepository.create({
+	await noteRepository.create({
 		text: ctx.text,
 		tgId: ctx.id,
 		userId: user?.id,

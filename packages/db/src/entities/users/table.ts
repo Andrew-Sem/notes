@@ -1,6 +1,6 @@
 import { relations } from "drizzle-orm";
 import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
-import { messages } from "../messages/table";
+import { notes } from "../notes/table";
 
 export const users = pgTable("users", {
 	id: varchar("id", { length: 255 })
@@ -14,5 +14,5 @@ export const users = pgTable("users", {
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-	messages: many(messages),
+	notes: many(notes),
 }));

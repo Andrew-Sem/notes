@@ -1,2 +1,2 @@
-export * from "./entities/messages/table";
+export * from "./entities/notes/table";
 export * from "./entities/users/table";

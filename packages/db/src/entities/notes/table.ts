@@ -2,7 +2,7 @@ import { relations } from "drizzle-orm";
 import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
 import { users } from "../users/table";
 
-export const messages = pgTable("messages", {
+export const notes = pgTable("notes", {
 	id: varchar("id", { length: 255 })
 		.notNull()
 		.primaryKey()
@@ -12,9 +12,9 @@ export const messages = pgTable("messages", {
 	userId: varchar("user_id", { length: 255 }).notNull(),
 });
 
-export const messagesRelations = relations(messages, ({ one }) => ({
+export const notesRelations = relations(notes, ({ one }) => ({
 	users: one(users, {
-		fields: [messages.userId],
+		fields: [notes.userId],
 		references: [users.id],
 	}),
 }));

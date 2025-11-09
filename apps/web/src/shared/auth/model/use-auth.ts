@@ -11,7 +11,8 @@ export const useAuth = () => {
 
 	const loginMutation = useMutation(
 		trpc.auth.login.mutationOptions({
-			onSuccess() {
+			onSuccess(data) {
+				authStorage.setTokens(data.accessToken, data.refreshToken);
 				setIsAuthenticated(true);
 			},
 			onSettled() {

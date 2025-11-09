@@ -79,3 +79,5 @@ export async function init(options: {
 		});
 	}
 }
+
+init({ mockForMacOS: true, debug: true, eruda: false });

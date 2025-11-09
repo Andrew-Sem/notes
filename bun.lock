@@ -54,6 +54,7 @@
       "dependencies": {
         "@hookform/resolvers": "^5.1.1",
         "@notes/api": "workspace:*",
+        "@notes/db": "workspace:*",
         "@tailwindcss/vite": "^4.0.15",
         "@tanstack/react-form": "^1.12.3",
         "@tanstack/react-query": "^5.85.5",

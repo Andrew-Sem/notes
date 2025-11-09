@@ -1,3 +1,4 @@
+import "./mock-tma-env";
 import "./init-tma";
 
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -36,7 +37,5 @@ if (!rootElement) {
 
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
-	root.render(
-		<RouterProvider router={router} />,
-	);
+	root.render(<RouterProvider router={router} />);
 }

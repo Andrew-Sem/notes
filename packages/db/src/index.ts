@@ -3,7 +3,7 @@ import * as schema from "./schema";
 
 export const db = drizzle(process.env.DATABASE_URL || "", { schema });
 
-export { messageRepository } from "./entities/messages";
+export { noteRepository } from "./entities/notes";
 // Re-export repositories
 export { userRepository } from "./entities/users";
 // Re-export types
