@@ -5,6 +5,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 import { queryClient, trpc } from "./shared/api/trpc";
+import { AuthGuard } from "./shared/auth";
 import Loader from "./shared/layout/loader";
 
 const router = createRouter({
@@ -14,7 +15,9 @@ const router = createRouter({
 	context: { trpc, queryClient },
 	Wrap: function WrapComponent({ children }: { children: React.ReactNode }) {
 		return (
-			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>
+				<AuthGuard>{children}</AuthGuard>
+			</QueryClientProvider>
 		);
 	},
 });
@@ -33,5 +36,7 @@ if (!rootElement) {
 
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
-	root.render(<RouterProvider router={router} />);
+	root.render(
+		<RouterProvider router={router} />,
+	);
 }

@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@notes/db": "workspace:*",
 		"@t3-oss/env-core": "^0.13.8",
+		"@telegram-apps/init-data-node": "^2.0.10",
 		"dotenv": "catalog:",
 		"gramio": "^0.4.11",
 		"zod": "catalog:"

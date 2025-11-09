@@ -1,5 +1,5 @@
 {
-	"name": "@notes/api",
+	"name": "@notes/telegram",
 	"exports": {
 		".": {
 			"types": "./src/index.ts",
@@ -15,20 +15,13 @@
 		"build": "tsdown"
 	},
 	"devDependencies": {
-		"@types/jsonwebtoken": "^9.0.10",
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"@notes/db": "workspace:*",
-		"@notes/telegram": "workspace:*",
-		"@trpc/client": "catalog:",
-		"@trpc/server": "catalog:",
-		"dotenv": "catalog:",
-		"hono": "catalog:",
-		"jsonwebtoken": "^9.0.2",
+		"@telegram-apps/init-data-node": "^2.0.10",
 		"zod": "catalog:"
 	}
 }
