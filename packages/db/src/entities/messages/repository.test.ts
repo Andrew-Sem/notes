@@ -11,6 +11,7 @@ describe("messageRepository", () => {
 	beforeEach(async () => {
 		const userData: UserInsert = {
 			tgId: 123456789,
+			firstName: "Test",
 		};
 		const user = await userRepository.create(userData);
 		if (!user) throw new Error("Failed to create test user");
