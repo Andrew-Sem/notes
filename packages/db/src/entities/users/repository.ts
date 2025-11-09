@@ -4,6 +4,12 @@ import { users } from "./table";
 import type { UserInsert, UserUpdate } from "./types";
 
 export const userRepository = {
+	async findById(id: string) {
+		return await db.query.users.findFirst({
+			where: (users, { eq }) => eq(users.id, id),
+		});
+	},
+
 	async findByTgId(tgId: number) {
 		return await db.query.users.findFirst({
 			where: (users, { eq }) => eq(users.tgId, tgId),

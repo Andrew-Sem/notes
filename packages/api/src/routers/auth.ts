@@ -1,7 +1,11 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { publicProcedure, router } from "..";
-import { generateAccessToken, generateRefreshToken } from "../lib/jwt";
+import {
+	generateAccessToken,
+	generateRefreshToken,
+	verifyRefreshToken,
+} from "../lib/jwt";
 
 export const authRouter = router({
 	login: publicProcedure
@@ -59,7 +63,48 @@ export const authRouter = router({
 
 	refresh: publicProcedure
 		.input(z.object({ refreshToken: z.string() }))
-		.mutation(async () => {
-			// TODO: implement
+		.mutation(async ({ input, ctx }) => {
+			const refreshSecret = process.env.JWT_REFRESH_SECRET;
+			const accessSecret = process.env.JWT_ACCESS_SECRET;
+
+			if (!accessSecret || !refreshSecret) {
+				throw new TRPCError({
+					code: "INTERNAL_SERVER_ERROR",
+					message: "JWT secrets not configured",
+				});
+			}
+
+			// Verify refresh token
+			let payload;
+			try {
+				payload = verifyRefreshToken(input.refreshToken, refreshSecret);
+			} catch (error) {
+				throw new TRPCError({
+					code: "UNAUTHORIZED",
+					message: "Invalid or expired refresh token",
+				});
+			}
+
+			// Load user from database
+			const user = await ctx.userRepository.findById(payload.userId);
+			if (!user) {
+				throw new TRPCError({
+					code: "UNAUTHORIZED",
+					message: "User not found",
+				});
+			}
+
+			// Generate new token pair with rotation
+			const newAccessToken = generateAccessToken(
+				user.id,
+				user.tgId,
+				accessSecret,
+			);
+			const newRefreshToken = generateRefreshToken(user.id, refreshSecret);
+
+			return {
+				accessToken: newAccessToken,
+				refreshToken: newRefreshToken,
+			};
 		}),
 });

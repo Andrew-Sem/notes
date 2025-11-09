@@ -32,8 +32,21 @@ export async function createContext(opts: CreateContextOptions) {
 			}
 		}
 	} catch (error) {
-		// Invalid token or user not found - session remains null
-		console.error("Auth error:", error);
+		// Token validation failed - session remains null
+		// This is expected for expired/invalid tokens and will trigger
+		// the refresh flow on the client side
+		if (error instanceof Error) {
+			if (error.name === "TokenExpiredError") {
+				// Token expired - client will refresh
+				console.debug("Access token expired");
+			} else if (error.name === "JsonWebTokenError") {
+				// Invalid token format/signature
+				console.warn("Invalid access token:", error.message);
+			} else {
+				// Other errors (user not found, etc)
+				console.error("Auth error:", error.message);
+			}
+		}
 	}
 
 	return {

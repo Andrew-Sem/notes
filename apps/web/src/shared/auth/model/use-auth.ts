@@ -3,6 +3,7 @@ import { useRawInitData } from "@tma.js/sdk-react";
 import { useEffect, useState } from "react";
 import { trpc } from "@/shared/api/trpc";
 import { authStorage } from "./auth-storage";
+import { onRefreshTokenExpired } from "./auth-events";
 
 export const useAuth = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,6 +40,27 @@ export const useAuth = () => {
 		};
 
 		auth();
+	}, [initDataRaw, loginMutation.mutate]);
+
+	// Handle refresh token expiration - re-authenticate automatically
+	useEffect(() => {
+		const handleRefreshExpired = () => {
+			if (!initDataRaw) {
+				setError("Unable to re-authenticate: init data not available");
+				setIsAuthenticated(false);
+				return;
+			}
+
+			// Clear current state
+			setIsAuthenticated(false);
+			setIsLoading(true);
+			setError(null);
+
+			// Re-authenticate with Telegram
+			loginMutation.mutate({ initData: initDataRaw });
+		};
+
+		return onRefreshTokenExpired(handleRefreshExpired);
 	}, [initDataRaw, loginMutation.mutate]);
 
 	return { isLoading, isAuthenticated, error };
