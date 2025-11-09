@@ -1,11 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { publicProcedure, router } from "..";
-import {
-	generateAccessToken,
-	generateRefreshToken,
-	verifyRefreshToken,
-} from "../lib/jwt";
+import { generateAccessToken, generateRefreshToken } from "../lib/jwt";
 
 export const authRouter = router({
 	login: publicProcedure
@@ -63,7 +59,7 @@ export const authRouter = router({
 
 	refresh: publicProcedure
 		.input(z.object({ refreshToken: z.string() }))
-		.mutation(async ({ input }) => {
+		.mutation(async () => {
 			// TODO: implement
 		}),
 });
